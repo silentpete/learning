@@ -109,7 +109,7 @@ class SelectChair {
 
     if ( legsInit == 2) {
       int fourLegs = 4;
-      JOptionPane.showMessageDialog(null, "Sorry, you can't have 2 legs" + "\n" + "Changing to "+ fourLegs);
+      popupMessage("Sorry, you can't have 2 legs" + "\n" + "Changing to "+ fourLegs);
       // use a setter to change the legs num on object
       c1.setLegs(fourLegs);
       printChair(c1);
