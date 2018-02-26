@@ -1,5 +1,5 @@
 public class Survey {
-    int respondentID = 0;
+    static int respondentID = 0;
     String surveyTitle = "";
 
     int incrementRespondentID() {
