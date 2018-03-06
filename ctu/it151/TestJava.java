@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.lang.Math;
 
 class TestJava {
     public static void main(String[] args) {
@@ -27,5 +28,14 @@ class TestJava {
         String productName= input.next();
         System.out.println(productName);
         input.close();
+
+        System.out.println(Math.min((Math.PI * Math.sqrt(25)), Math.max(6.721, 1)));
+        System.out.println(Math.round(Math.PI*Math.sqrt(25)));
+
+        System.out.println(Math.min(115 % 10, 3*8-4));
+        System.out.println(Math.min(11 / 4, 5 * 4));
+        System.out.println(Math.min(8 + 10 * 2, 8 / 2 * 4));
+        System.out.println(Math.min(11 / 4, 5 * 3));
+
     }
 }
