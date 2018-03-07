@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 import java.lang.Math;
 
@@ -36,6 +37,9 @@ class TestJava {
         System.out.println(Math.min(11 / 4, 5 * 4));
         System.out.println(Math.min(8 + 10 * 2, 8 / 2 * 4));
         System.out.println(Math.min(11 / 4, 5 * 3));
+
+        Random rand = new Random();
+        System.out.println(rand.nextInt(5));
 
     }
 }
