@@ -35,7 +35,7 @@ class LinkedList {
         head = newHead;
     }
 
-    // delete a an item from the linked list (note: item is still in memory though)
+    // delete an item from the linked list (note: item is still in memory though)
     public void deleteNodeWithValueFromLinkedList(String data) {
         if (head == null) {
             return;
@@ -114,6 +114,24 @@ class ContributorInfo {
     }
 
     // methods
+    public void loadCsvContributorInfo() {
+        // properties
+        String csvFile = "contributors.csv";
+        String csvLine = "";
+        // String cvsSeparator = ","; // need to use this later to seperate the items in each node, or same the node item as an array.
+
+        // READ IN CSV FILE
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            while ((csvLine = br.readLine()) != null) {
+                String contributor = csvLine;
+                // add each line in csv file as linked list node item
+                linkedList.appendToLinkedList(contributor);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void getNewContributorInfo() {
         getFirstName();
         getLastName();
@@ -167,31 +185,18 @@ class ContributorInfo {
 
 class Start {
     public static void main(String[] args) {
-        // properties
-        String csvFile = "contributors.csv";
-        String csvLine = "";
-        // String cvsSeparator = ","; // need to use this later to seperate the items in each node, or same the node item as an array.
-
         // CREATE LINKED LIST
         LinkedList ll = new LinkedList();
+        ContributorInfo ci = new ContributorInfo(ll);
 
-        // READ IN CSV FILE
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            while ((csvLine = br.readLine()) != null) {
-                String contributor = csvLine;
-                // add each line in csv file as linked list node item
-                ll.appendToLinkedList(contributor);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // IMPORT CSV
+        ci.loadCsvContributorInfo();
 
         // PRINT ALL INFO SO FAR
         ll.printLinkedListData();
 
         // MANUALLY ADD TO LIST
         System.out.println("Add contributor to linked-list");
-        ContributorInfo ci = new ContributorInfo(ll);
         ci.getNewContributorInfo();
 
         // PRINT ALL INFO SO FAR
