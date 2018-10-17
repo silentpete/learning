@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 // Assignment Goals
 // A fully documented program to load the Hash table with collisions being handled as a linked list, implemented as a Stack
 // A test plan to show how the program runs and can be executed
@@ -29,7 +27,7 @@ class ContributorInfo {
     String country;
     String phone;
     int contribution;
-    int id = 100;
+    int id = 1;
     Scanner scanner = new Scanner(System.in);
 
     // constructors
@@ -56,6 +54,15 @@ class ContributorInfo {
         }
     }
 
+    public void loadHashtable(Hashtable ht) {
+        for (int i = 0; i < linkedList.size(); i++) {
+            int id = getDataID(getLinkedListNodeData(i));
+            int mod = id % 5;
+            LinkedList lltmp = (LinkedList) ht.get(mod);
+            lltmp.addLast(id);
+        }
+    }
+
     public void getNewContributorInfo() {
         getFirstName();
         getLastName();
@@ -64,6 +71,13 @@ class ContributorInfo {
         getContribution();
         setID();
         addContributorToLinkedList();
+    }
+
+    public void printContributorInfo() {
+        System.out.println("\nPrint Contributor Info");
+        for (int i = 0; i < linkedList.size(); i++) {
+            System.out.println("- " + linkedList.get(i));
+        }
     }
 
     // ask console for first name of new contributor
@@ -103,7 +117,19 @@ class ContributorInfo {
 
     // add the new contributor info to the linked list
     private void addContributorToLinkedList() {
-        linkedList.addLast(firstName+","+lastName+","+country+","+phone+","+contribution+","+id);
+        linkedList.addLast(firstName + "," + lastName + "," + country + "," + phone + "," + contribution + "," + id);
+    }
+
+    private String getLinkedListNodeData(int index) {
+        String linkedListItem = (String) linkedList.get(index);
+        return linkedListItem;
+    }
+
+    private int getDataID(String linkedListData) {
+        String[] data = linkedListData.split(",");
+        // System.out.println("ID: " + data[5]);
+
+        return Integer.parseInt(data[5]);
     }
 }
 
@@ -112,48 +138,36 @@ class Start {
         // CREATE LINKED LIST USING UTIL.LINKEDLIST SHOWN IN TEACHER EXAMPLE
         LinkedList ll = new LinkedList();
 
-        ContributorInfo ci = new ContributorInfo(ll);
-
         // IMPORT CSV
+        ContributorInfo ci = new ContributorInfo(ll);
+        System.out.println("\nLoad CSV");
         ci.loadCsvFile("contributors.csv");
 
         // PRINT ALL INFO SO FAR
-        for (int i = 0; i < ll.size(); i++) {
-            System.out.println(ll.get(i));
-        }
-
-        Hashtable ht = new Hashtable();
-        System.out.println(ht.size());
-        ht.put(0, new LinkedList());
-        System.out.println(ht.size());
-        System.out.println(ht.);
-        // CREATE HASH TABLE
-        // Node[] hashtable = new Node[5];
-        // for (int i = 0; i < hashtable.length; i++) {
-        //     System.out.println("bucket " + i + ": " + hashtable[i]);
-        // }
-
-        // for (int i = 0; i < hashtable.length; i++) {
-        //     Node tmp = new Node(Integer.toString(i));
-        //     hashtable[i] = tmp;
-        // }
-
-        // for (int i = 0; i < hashtable.length; i++) {
-        //     System.out.println("bucket " + i + ": " + hashtable[i]);
-        // }
+        ci.printContributorInfo();
 
         // MANUALLY ADD TO LINKED LIST
-        // System.out.println("Add contributor to linked-list");
-        // ci.getNewContributorInfo();
+        System.out.println("\nManually add contributor to linked-list");
+        ci.getNewContributorInfo();
 
         // PRINT ALL INFO SO FAR
-        // ll.printLinkedListData();
+        ci.printContributorInfo();
 
-        // REMOVE A NODE
-        // System.out.println("pop Tim Murphy");
-        // ll.deleteNodeWithValueFromLinkedList("Tim,Murphy,USA,8285557865,200,25");
+        // CREATE HASHTABLE WITH 5 BUCKETS
+        int buckets = 5;
+        Hashtable ht = new Hashtable();
+        for (int i = 0; i < buckets; i++) {
+            ht.put(i, new LinkedList());
+        }
 
-        // PRINT ALL INFO SO FAR
-        // ll.printLinkedListData();
+        // LOAD HASHTABLE BUCKETS WITH ID's
+        ci.loadHashtable(ht);
+
+        // PRINT BUCKETS
+        System.out.println("\nPrint Bucket Info");
+        for (int i = 0; i < buckets; i++) {
+            System.out.println("bucket " + i + ": " + ht.get(i));
+        }
+
     }
 }
