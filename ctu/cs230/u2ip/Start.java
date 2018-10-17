@@ -1,90 +1,14 @@
 import java.util.Scanner;
 
 // Assignment Goals
-// A fully documented program to load the data implemented as a stack
+// A fully documented program to load the Hash table with collisions being handled as a linked list, implemented as a Stack
 // A test plan to show how the program runs and can be executed
-// A screenshot showing that the program loaded the data, and after all data is loaded, perform a single pop of the stack
+// A screenshot showing that the program loaded the data, and after all data is loaded, shows the contents of the first Hash bucket (ideally this is Bucket 0)
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-
-class LinkedList {
-    Node head;
-    int count;
-
-    // add an item to the end of the linked list
-    public void appendToLinkedList(String data) {
-        if (head == null) {
-            head = new Node(data);
-            return;
-        }
-
-        Node current = head;
-        while (current.next != null) {
-            current = current.next;
-        }
-        current.next = new Node(data);
-    }
-
-    // add an item to the front of the linked list
-    public void prependToLinkedList(String data) {
-        Node newHead = new Node(data);
-        newHead.next = head;
-        head = newHead;
-    }
-
-    // delete an item from the linked list (note: item is still in memory though)
-    public void deleteNodeWithValueFromLinkedList(String data) {
-        if (head == null) {
-            return;
-        }
-
-        if (head.data.equals(data)) {
-            head = head.next;
-            return;
-        }
-
-        Node current = head;
-        while (current.next != null) {
-            if (current.next.data.equals(data)) {
-                current.next = current.next.next;
-                return;
-            }
-            current = current.next;
-        }
-    }
-
-    // set the count of the number of nodes
-    private void setLinkedListCount() {
-        count = 0;
-        if (head == null) return;
-
-        Node current = head;
-        while (current != null) {
-            count++;
-            current = current.next;
-        }
-    }
-
-    // print everything in the linked list
-    public void printLinkedListData() {
-        setLinkedListCount();
-        if (head == null) return;
-
-        System.out.println("");
-        System.out.println("All Linked-List Data");
-
-        Node current = head;
-        for (int i = 0; i < count; i++) {
-            System.out.println(current.data);
-            current = current.next;
-        }
-
-        System.out.println("");
-    }
-}
 
 class Node {
     // properties
@@ -125,7 +49,7 @@ class ContributorInfo {
             while ((csvLine = br.readLine()) != null) {
                 String contributor = csvLine;
                 // add each line in csv file as linked list node item
-                linkedList.appendToLinkedList(contributor);
+                linkedList.addLast(contributor);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -179,34 +103,57 @@ class ContributorInfo {
 
     // add the new contributor info to the linked list
     private void addContributorToLinkedList() {
-        linkedList.appendToLinkedList(firstName+","+lastName+","+country+","+phone+","+contribution+","+id);
+        linkedList.addLast(firstName+","+lastName+","+country+","+phone+","+contribution+","+id);
     }
 }
 
 class Start {
     public static void main(String[] args) {
-        // CREATE LINKED LIST
+        // CREATE LINKED LIST USING UTIL.LINKEDLIST SHOWN IN TEACHER EXAMPLE
         LinkedList ll = new LinkedList();
+
         ContributorInfo ci = new ContributorInfo(ll);
 
         // IMPORT CSV
         ci.loadCsvFile("contributors.csv");
 
         // PRINT ALL INFO SO FAR
-        ll.printLinkedListData();
+        for (int i = 0; i < ll.size(); i++) {
+            System.out.println(ll.get(i));
+        }
+
+        Hashtable ht = new Hashtable();
+        System.out.println(ht.size());
+        ht.put(0, new LinkedList());
+        System.out.println(ht.size());
+        System.out.println(ht.);
+        // CREATE HASH TABLE
+        // Node[] hashtable = new Node[5];
+        // for (int i = 0; i < hashtable.length; i++) {
+        //     System.out.println("bucket " + i + ": " + hashtable[i]);
+        // }
+
+        // for (int i = 0; i < hashtable.length; i++) {
+        //     Node tmp = new Node(Integer.toString(i));
+        //     hashtable[i] = tmp;
+        // }
+
+        // for (int i = 0; i < hashtable.length; i++) {
+        //     System.out.println("bucket " + i + ": " + hashtable[i]);
+        // }
 
         // MANUALLY ADD TO LINKED LIST
-        System.out.println("Add contributor to linked-list");
-        ci.getNewContributorInfo();
+        // System.out.println("Add contributor to linked-list");
+        // ci.getNewContributorInfo();
 
         // PRINT ALL INFO SO FAR
-        ll.printLinkedListData();
+        // ll.printLinkedListData();
 
         // REMOVE A NODE
-        System.out.println("pop Tim Murphy");
-        ll.deleteNodeWithValueFromLinkedList("Tim,Murphy,USA,8285557865,200,25");
+        // System.out.println("pop Tim Murphy");
+        // ll.deleteNodeWithValueFromLinkedList("Tim,Murphy,USA,8285557865,200,25");
 
         // PRINT ALL INFO SO FAR
-        ll.printLinkedListData();
+        // ll.printLinkedListData();
     }
 }
