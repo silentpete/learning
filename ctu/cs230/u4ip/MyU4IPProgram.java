@@ -87,15 +87,39 @@ class Contributor {
         ll.addLast(firstName + "," + lastName + "," + country + "," + phone + "," + contribution + "," + id);
     }
 
+    public void removeContributorFromLinkedList(LinkedList ll) {
+        if (ll.size() == 0) {
+            System.out.println("\nNo Elements to remove");
+            return;
+        }
+        System.out.println("Which contributor would you like to remove?");
+        for (int i = 0; i < ll.size(); i++) {
+            System.out.println((i+1) + ". " + ll.get(i));
+        }
+
+        int rmContributor = scanner.nextInt();
+        System.out.println("removing " + rmContributor);
+        ll.remove(rmContributor - 1);
+    }
 }
 
 class MyHelpers {
     public void printLL(LinkedList ll) {
         System.out.println("\nContributor Information");
+        if (ll.size() == 0) {
+            System.out.println("(empty)");
+        }
         for (int i = 0; i < ll.size(); i++) {
             System.out.println(ll.get(i));
         }
     }
+
+    // public void insertionSortLL(LinkedList ll) {
+    //     LinkedList tmpLL = new LinkedList();
+    //     (String) linkedList.get(index);
+    // }
+
+    // public void hashtableOfIDs() {}
 }
 
 class MyU4IPProgram {
@@ -111,10 +135,11 @@ class MyU4IPProgram {
         "\nPlease select an action:\n"
         + "1. Print out the contributor information\n"
         + "2. Add a new contributor\n"
+        + "3. Remove a contributor\n"
         + "9. Exit program";
 
         c.loadCsvFile(csv, ll);
-
+        Collections.sort(ll);
         boolean loop = true;
         while (loop) {
             System.out.println(prompt);
@@ -127,8 +152,11 @@ class MyU4IPProgram {
             case 2:
                 c.getNewContributorInfo(ll);
                 break;
+            case 3:
+                c.removeContributorFromLinkedList(ll);
+                break;
             default:
-                System.out.println("exiting");
+                System.out.println("\nExiting!");
                 loop = false;
                 break;
             }
