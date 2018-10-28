@@ -1,33 +1,67 @@
-// import java.io.BufferedReader;
-// import java.io.FileReader;
-// import java.io.IOException;
+
 import java.util.*;
 
 // Contributor is used for Zoo collection and processing methods.
-// - loadCsvFile
-// - getNewContributorInfo
 class Contributor {
     // properties
-    String firstName;
-    String lastName;
-    String country;
-    String phone;
-    int contribution;
-    int id;
+    private String firstName;
+    private String lastName;
+    private String country;
+    private String phone;
+    private Double contribution;
+    private int id;
 
     Scanner scanner = new Scanner(System.in);
 
     // constructors
-    // public Contributor(String firstName, String lastName, String country, String phone, int contribution, int id) {
-    //   firstName = firstName;
-    //   lastName = lastName;
-    //   country = country;
-    //   phone = phone;
-    //   contribution = contribution;
-    //   id = id;
-    // }
+    public Contributor() {
+
+    }
+
+    public Contributor(String[] strAry) {
+        this.firstName = strAry[0];
+        this.lastName = strAry[1];
+        this.country = strAry[2];
+        this.phone = strAry[3];
+        this.contribution = Double.parseDouble(strAry[4]);
+        this.id = Integer.parseInt(strAry[5]);
+    }
+
+    public Contributor(String firstName, String lastName, String country, String phone, String contribution, String id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.country = country;
+        this.phone = phone;
+        this.contribution = Double.parseDouble(contribution);
+        this.id = Integer.parseInt(id);
+    }
+
     // methods
-    public void getNewContributorInfo(LinkedList ll) {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public double getContribution() {
+        return contribution;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public void addNewContributor(LinkedList ll) {
         System.out.println("\nCollecting New User Info");
         setFirstName();
         setLastName();
@@ -65,7 +99,7 @@ class Contributor {
     // ask console for contribution from contributor
     private void setContribution() {
         System.out.println("What is the contributors contribution dollar amount?");
-        contribution = scanner.nextInt();
+        contribution = scanner.nextDouble();
     }
 
     // set the ID
@@ -78,18 +112,4 @@ class Contributor {
         ll.addLast(firstName + "," + lastName + "," + country + "," + phone + "," + contribution + "," + id);
     }
 
-    public void removeContributorFromLinkedList(LinkedList ll) {
-        if (ll.size() == 0) {
-            System.out.println("\nNo Elements to remove");
-            return;
-        }
-        System.out.println("Which contributor would you like to remove?");
-        for (int i = 0; i < ll.size(); i++) {
-            System.out.println((i+1) + ". " + ll.get(i));
-        }
-
-        int rmContributor = scanner.nextInt();
-        System.out.println("removing " + rmContributor);
-        ll.remove(rmContributor - 1);
-    }
 }
