@@ -15,7 +15,7 @@ class Contributor {
 
     // constructors
     public Contributor() {
-
+        id = 0;
     }
 
     public Contributor(String[] strAry) {
@@ -61,15 +61,13 @@ class Contributor {
         return id;
     }
 
-    public void addNewContributor(LinkedList ll) {
+    public void setNewContributor() {
         System.out.println("\nCollecting New User Info");
         setFirstName();
         setLastName();
         setCountry();
         setPhone();
         setContribution();
-        setID();
-        addContributorToLinkedList(ll);
     }
 
     // ask console for first name of new contributor
@@ -103,13 +101,8 @@ class Contributor {
     }
 
     // set the ID
-    private void setID() {
-        id++;
-    }
-
-    // add the new contributor info to the linked list
-    private void addContributorToLinkedList(LinkedList ll) {
-        ll.addLast(firstName + "," + lastName + "," + country + "," + phone + "," + contribution + "," + id);
+    public void setID(int sid) {
+        id = sid;
     }
 
 }

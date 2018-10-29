@@ -5,6 +5,7 @@ import java.util.*;
 
 class MyHelpers {
     Scanner scanner = new Scanner(System.in);
+    public int highestID;
 
     public void loadCsvFile(String csv, LinkedList ll) {
         // properties
@@ -13,14 +14,45 @@ class MyHelpers {
         // read in csv file
         try (BufferedReader br = new BufferedReader(new FileReader(csv))) {
             while ((csvLine = br.readLine()) != null) {
-                String contributor = csvLine;
-                // add each line in csv file as linked list node item
-                // Contributor tmpc = new Contributor(csvLine.split(","));
-                // System.out.println(tmpc.getFirstName());
-                ll.addLast(contributor);
+                String[] c = csvLine.split(",");
+                addContributorSortedByLine(ll, c[0], c[1], c[2], c[3], Double.parseDouble(c[4]), Integer.parseInt(c[5]));
+                setHigestID(ll, Integer.parseInt(c[5]));
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void setHigestID(LinkedList ll, int tmpid) {
+        if (tmpid > highestID) {
+            highestID = tmpid;
+        }
+    }
+
+    public boolean zeroCheck(int tid) {
+        if (tid == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public int setIDHighestAvail() {
+        highestID++;
+        return highestID;
+    }
+
+    public void addContributorSortedByLine(LinkedList ll, String fn, String ln, String c, String pn, double con, int id ) {
+        String contributorInfo = (fn + "," + ln + "," + c + "," + pn + "," + con + "," + id);
+        if (ll.size() == 0) {
+            ll.add(contributorInfo);
+            return;
+        }
+        for (int i = 0; i < ll.size(); i++) {
+            String value = (String) ll.get(i);
+            if (value.compareTo(contributorInfo) > 0) {
+                ll.add(i, contributorInfo);
+                return;
+            }
         }
     }
 
@@ -62,6 +94,10 @@ class MyHelpers {
     }
 
     public void printContributorInfo(LinkedList ll, int indexInLL) {
+        if (indexInLL == -1) {
+            System.out.println("No contributor found.");
+            return;
+        }
         String line = (String) ll.get(indexInLL);
         Contributor c = new Contributor(line.split(","));
         System.out.println("\n" + c.getFirstName() + "'s Contributor Information\n" + "First Name: " + c.getFirstName() + "\n" + "Last Name: "
@@ -88,14 +124,39 @@ class MyHelpers {
         }
     }
 
-    public String findContributorInfoByID(LinkedList ll, int id) {
+    public String findContributorInfoByID(LinkedList ll, int fid) {
         for (int i = 0; i < ll.size(); i++) {
             String cInfo = (String) ll.get(i);
             Contributor tmpc = new Contributor(cInfo.split(","));
-            if (tmpc.getID() == id) {
+
+            if (tmpc.getID() == fid) {
                 return cInfo;
             }
         }
         return "";
+    }
+
+    public int findContributorByName(LinkedList ll, String name) {
+        for (int i = 0; i < ll.size(); i++) {
+            String cInfo = (String) ll.get(i);
+            Contributor tmpc = new Contributor(cInfo.split(","));
+
+            if (tmpc.getFirstName().toLowerCase().contains(name.toLowerCase()) || tmpc.getLastName().toLowerCase().contains(name.toLowerCase())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int findContributorByID(LinkedList ll, int cid) {
+        for (int i = 0; i < ll.size(); i++) {
+            String cInfo = (String) ll.get(i);
+            Contributor tmpc = new Contributor(cInfo.split(","));
+
+            if (tmpc.getID() == cid || tmpc.getID() == cid) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
