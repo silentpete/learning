@@ -34,10 +34,6 @@ class U4IP {
         String csv = "contributors.csv";
         help.loadCsvFile(csv, ll);
 
-        // Sort
-        // TODO: create our own sort I guess
-        Collections.sort(ll);
-
         // How many buckets in the Hashtable
         int buckets = 5;
         // Create A Hashtable of Linked List buckets
@@ -45,6 +41,7 @@ class U4IP {
         for (int i = 0; i < buckets; i++) {
             llht.put(i, new LinkedList());
         }
+
         // load the contributors ID's into the hashtable
         hashHelp.loadHashtable(llht, ll);
 

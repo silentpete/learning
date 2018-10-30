@@ -44,13 +44,16 @@ class MyHelpers {
     public void addContributorSortedByLine(LinkedList ll, String fn, String ln, String c, String pn, double con, int id ) {
         String contributorInfo = (fn + "," + ln + "," + c + "," + pn + "," + con + "," + id);
         if (ll.size() == 0) {
-            ll.add(contributorInfo);
+            ll.addFirst(contributorInfo);
             return;
         }
         for (int i = 0; i < ll.size(); i++) {
             String value = (String) ll.get(i);
-            if (value.compareTo(contributorInfo) > 0) {
+            if (value.toLowerCase().compareTo(contributorInfo.toLowerCase()) > 0) {
                 ll.add(i, contributorInfo);
+                return;
+            } else if (value.toLowerCase().compareTo(contributorInfo.toLowerCase()) < 0 && i == (ll.size()-1)) {
+                ll.addLast(contributorInfo);
                 return;
             }
         }
