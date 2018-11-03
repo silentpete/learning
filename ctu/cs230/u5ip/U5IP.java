@@ -9,7 +9,7 @@
 
 import java.util.*;
 
-class U4IP {
+class U5IP {
     public static void main(String[] args) {
         // CREATE LINKED LIST USING UTIL.LINKEDLIST SHOWN IN TEACHER EXAMPLE
         LinkedList ll = new LinkedList();
