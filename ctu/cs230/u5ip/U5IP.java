@@ -1,11 +1,12 @@
 
-// The design saved in a Key Assignment Draft that does not include any actual code and will be submitted as the deliverable in the next discussion board.
+// The design document that includes the recursion example.
 // A fully documented program to load the data creating a sorted linked list.
-// A test plan to show how the program runs and can be executed.
+// A test plan to show how the program runs and can be executed
 // A screenshot showing that the program loaded the data, and after all data is loaded perform the following:
 //     Print All showing the sorted list.
 //     Contributor information for Georg Pipps
 //     Contributor information for ID 25
+//     An analysis of the differences in performance of the Sequential Search versus the Binary Search
 
 import java.util.*;
 
@@ -13,22 +14,9 @@ class U5IP {
     public static void main(String[] args) {
         // CREATE LINKED LIST USING UTIL.LINKEDLIST SHOWN IN TEACHER EXAMPLE
         LinkedList ll = new LinkedList();
-        MyHelpers help = new MyHelpers();
-        MyHashHelpers hashHelp = new MyHashHelpers();
-        Scanner scanner = new Scanner(System.in);
 
-        String prompt =
-        "\nPlease select an action:\n"
-        + "1. Print out all contributor information\n"
-        + "2. Add a new contributor\n"
-        + "3. Remove a contributor by record\n"
-        + "4. Print out one contributor info\n"
-        + "5. Print out all contributor info\n"
-        + "6. Print out ID hashtable\n"
-        + "7. Remove contributor by ID\n"
-        + "8. Find contributor by name [first or last]\n"
-        + "9. Find contributor by ID\n"
-        + "99. Exit program";
+        // bring in my helpers
+        MyHelpers help = new MyHelpers();
 
         // load the contributors.csv file
         String csv = "contributors.csv";
@@ -42,8 +30,21 @@ class U5IP {
             llht.put(i, new LinkedList());
         }
 
+        // bring in my hash helpers
+        MyHashHelpers hashHelp = new MyHashHelpers();
+
         // load the contributors ID's into the hashtable
         hashHelp.loadHashtable(llht, ll);
+
+        // the program prompt
+        String prompt = "\nPlease select an action:\n" + "1. Print out all contributor information\n"
+        + "2. Add a new contributor\n" + "3. Remove a contributor by record\n"
+        + "4. Print out one contributor info\n" + "5. Print out all contributor info\n"
+        + "6. Print out ID hashtable\n" + "7. Remove contributor by ID\n"
+        + "8. Find contributor by name [first or last]\n" + "9. Find contributor by ID\n" + "99. Exit program";
+
+        // create a scanner to be used for the program inputs
+        Scanner scanner = new Scanner(System.in);
 
         boolean loop = true;
         while (loop) {
@@ -62,15 +63,17 @@ class U5IP {
                     int num = help.setIDHighestAvail();
                     c.setID(num);
                 }
-                help.addContributorSortedByLine(ll, c.getFirstName(), c.getLastName(), c.getCountry(), c.getPhone(), c.getContribution(), c.getID());
-                hashHelp.addIDToHashtable(llht, c.getFirstName(), c.getLastName(), c.getCountry(), c.getPhone(), c.getContribution(), c.getID());
+                help.addContributorSortedByLine(ll, c.getFirstName(), c.getLastName(), c.getCountry(), c.getPhone(),
+                        c.getContribution(), c.getID());
+                hashHelp.addIDToHashtable(llht, c.getFirstName(), c.getLastName(), c.getCountry(), c.getPhone(),
+                        c.getContribution(), c.getID());
                 break;
             case 3:
                 if (!help.checkLLEmpty(ll)) {
                     System.out.println("\nWhich contributor would you like to remove?");
                     help.printLLAllWNum(ll);
                     int rmContributor = scanner.nextInt();
-                    String contribInfo = (String) ll.get(rmContributor-1);
+                    String contribInfo = (String) ll.get(rmContributor - 1);
                     Contributor tmpc = new Contributor(contribInfo.split(","));
                     System.out.println("\nremoving: " + tmpc.getFirstName());
                     help.popContributorFromLinkedList(ll, contribInfo);
