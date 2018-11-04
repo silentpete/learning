@@ -3,7 +3,7 @@ import java.util.*;
 
 // Contributor is used for Zoo collection and processing methods.
 class Contributor {
-    // properties
+    // fields
     private String firstName;
     private String lastName;
     private String country;
@@ -37,30 +37,37 @@ class Contributor {
     }
 
     // methods
+    // return the contributors firstname
     public String getFirstName() {
         return firstName;
     }
 
+    // return the Contributors last name
     public String getLastName() {
         return lastName;
     }
 
+    // return the Contributors country
     public String getCountry() {
         return country;
     }
 
+    // return the Contributors phone
     public String getPhone() {
         return phone;
     }
 
+    // return the Contributors contribution
     public double getContribution() {
         return contribution;
     }
 
+    // return the Contributors id
     public int getID() {
         return id;
     }
 
+    // combine all the steps to add a new Contributor
     public void setNewContributor() {
         System.out.println("\nCollecting New User Info");
         setFirstName();

@@ -23,12 +23,14 @@ class MyHelpers {
         }
     }
 
+    // keep track of the highest ID encountered
     public void setHigestID(LinkedList ll, int tmpid) {
         if (tmpid > highestID) {
             highestID = tmpid;
         }
     }
 
+    // a new Contributor will have ID 0, checking for this
     public boolean zeroCheck(int tid) {
         if (tid == 0) {
             return true;
@@ -36,11 +38,13 @@ class MyHelpers {
         return false;
     }
 
+    // changing the highest ID available, this is used for new Contributors to get the next highest ID
     public int setIDHighestAvail() {
         highestID++;
         return highestID;
     }
 
+    // add contributor into the linkedlist sorted
     public void addContributorSortedByLine(LinkedList ll, String fn, String ln, String c, String pn, double con, int id ) {
         String contributorInfo = (fn + "," + ln + "," + c + "," + pn + "," + con + "," + id);
         if (ll.size() == 0) {
@@ -59,6 +63,7 @@ class MyHelpers {
         }
     }
 
+    // check if the linked list given is empty
     public boolean checkLLEmpty(LinkedList ll) {
         // check if empty linked list
         if (ll.size() == 0) {
@@ -96,6 +101,7 @@ class MyHelpers {
         }
     }
 
+    // print a contributor from a linked list given the place it'll be found by index
     public void printContributorInfo(LinkedList ll, int indexInLL) {
         if (indexInLL == -1) {
             System.out.println("No contributor found.");
@@ -108,18 +114,25 @@ class MyHelpers {
                 + "Contribution: " + c.getContribution() + "\n" + "ID: " + c.getID());
     }
 
+    // print out the given linked list, ask by prompt which contributor info would like to print out
     public void printContributorFromLinkedList(LinkedList ll) {
         // check if empty linked list
         if (ll.size() == 0) {
             System.out.println("(empty)");
+            return;
         }
 
         System.out.println("\nWhich contributor info would you like to print?");
         printLLAllWNum(ll);
         int printContributor = scanner.nextInt();
+        if (printContributor > ll.size() || printContributor <= 0) {
+            System.out.println("not a valid number: " + printContributor);
+            return;
+        }
         printContributorInfo(ll, (printContributor-1));
     }
 
+    // print out all contributor information
     public void printContributorsFromLinkedList(LinkedList ll) {
         System.out.println("\nAll Contributor Information");
         for (int i = 0; i < ll.size(); i++) {
@@ -127,6 +140,7 @@ class MyHelpers {
         }
     }
 
+    // find an id of a contributor in the linked list
     public String findContributorInfoByID(LinkedList ll, int fid) {
         for (int i = 0; i < ll.size(); i++) {
             String cInfo = (String) ll.get(i);
@@ -139,6 +153,7 @@ class MyHelpers {
         return "";
     }
 
+    // find an name of a contributor in the linked list
     public int findContributorByName(LinkedList ll, String name) {
         for (int i = 0; i < ll.size(); i++) {
             String cInfo = (String) ll.get(i);
@@ -151,6 +166,7 @@ class MyHelpers {
         return -1;
     }
 
+    // find contributor by id
     public int findContributorByID(LinkedList ll, int cid) {
         for (int i = 0; i < ll.size(); i++) {
             String cInfo = (String) ll.get(i);

@@ -2,52 +2,72 @@ import java.util.*;
 
 class MyHashHelpers {
 
-    public void loadHashtable(Hashtable llht, LinkedList ll) {
+    // load the hashtable from the linked list, which was loaded from the csv file
+    public void loadHashtable(Hashtable ht, LinkedList ll) {
         for (int i = 0; i < ll.size(); i++) {
             String contributor = (String) ll.get(i);
             Contributor c = new Contributor(contributor.split(","));
-            addIDToHashtable(llht, c.getFirstName(), c.getLastName(), c.getCountry(), c.getPhone(), c.getContribution(), c.getID());
+            addIDToHashtable(ht, c);
         }
     }
 
-    public void addIDToHashtable(Hashtable llht, String s0, String s1, String s2, String s3, Double d4, int i5) {
-        int id = i5;
+    // add a new contributor to the hashtable in the correct bucket
+    public void addIDToHashtable(Hashtable ht, Contributor c) {
+        int id = c.getID();
         int mod = id % 5;
-        LinkedList lltmp = (LinkedList) llht.get(mod);
-        lltmp.addLast(id);
+        LinkedList lltmp = (LinkedList) ht.get(mod);
+        lltmp.addLast(c);
     }
 
     // pop (or remove) the ID passed from the the hashtable
-    public void popIDFromHashtable(Hashtable llht, int id) {
+    public void popIDFromHashtable(Hashtable ht, int id) {
         int mod = id % 5;
-        LinkedList lltmp = (LinkedList) llht.get(mod);
+        LinkedList lltmp = (LinkedList) ht.get(mod);
         for (int i = 0; i < lltmp.size(); i++) {
-            if ((Integer) lltmp.get(i) == id) {
+            Contributor c = (Contributor) lltmp.get(i);
+            if (c.getID() == id) {
                 lltmp.remove(i);
             }
         }
     }
 
-    public void printHashtableOneNumPerLine(Hashtable llht) {
-        for (int i = 0; i < llht.size(); i++) {
-            LinkedList bucketll = (LinkedList) llht.get(i);
-            for (int j = 0; j < bucketll.size(); j++) {
-                System.out.println(bucketll.get(j));
+    // print the hashtable content one bucket linked list item at a time
+    public void printHashtableOneNumPerLine(Hashtable ht) {
+        for (int i = 0; i < ht.size(); i++) {
+            LinkedList ll = (LinkedList) ht.get(i);
+            for (int j = 0; j < ll.size(); j++) {
+                Contributor c = (Contributor) ll.get(j);
+                System.out.println(c.getID());
             }
         }
     }
 
-    public boolean checkHTEmpty(Hashtable llht) {
-        if (llht.size() == 0) {
+    // check if the hashtable is empty
+    public boolean checkHTEmpty(Hashtable ht) {
+        if (ht.size() == 0) {
             return true;
         }
         return false;
     }
 
-    public void printHashtable(Hashtable llht) {
+    // print everything in the hashtable
+    public void printHashtable(Hashtable ht) {
         System.out.println("\nContributor ID's Hashtable");
-        for (int i = 0; i < llht.size(); i++) {
-            System.out.println("bucket " + i + ": " + llht.get(i));
+        for (int i = 0; i < ht.size(); i++) {
+            LinkedList ll = (LinkedList) ht.get(i);
+            int[] ids = new int[ll.size()];
+            for (int j = 0; j < ll.size(); j++) {
+                Contributor c = (Contributor) ll.get(j);
+                ids[j] = c.getID();
+            }
+            System.out.print("bucket " + i + ": ");
+            for (int k = 0; k < ids.length; k++) {
+                System.out.print(ids[k]);
+                if (k != ids.length) {
+                    System.out.print(",");
+                }
+            }
+            System.out.println();
         }
     }
 

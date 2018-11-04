@@ -25,23 +25,29 @@ class U5IP {
         // How many buckets in the Hashtable
         int buckets = 5;
         // Create A Hashtable of Linked List buckets
-        Hashtable llht = new Hashtable();
+        Hashtable ht = new Hashtable();
         for (int i = 0; i < buckets; i++) {
-            llht.put(i, new LinkedList());
+            ht.put(i, new LinkedList());
         }
 
         // bring in my hash helpers
         MyHashHelpers hashHelp = new MyHashHelpers();
 
         // load the contributors ID's into the hashtable
-        hashHelp.loadHashtable(llht, ll);
+        hashHelp.loadHashtable(ht, ll);
 
         // the program prompt
-        String prompt = "\nPlease select an action:\n" + "1. Print out all contributor information\n"
-        + "2. Add a new contributor\n" + "3. Remove a contributor by record\n"
-        + "4. Print out one contributor info\n" + "5. Print out all contributor info\n"
-        + "6. Print out ID hashtable\n" + "7. Remove contributor by ID\n"
-        + "8. Find contributor by name [first or last]\n" + "9. Find contributor by ID\n" + "99. Exit program";
+        String prompt = "\nPlease select an action:\n"
+        + "1. Print out all contributor information\n"
+        + "2. Add a new contributor\n"
+        + "3. Remove a contributor by record\n"
+        + "4. Print out one contributor info\n"
+        + "5. Print out all contributor info\n"
+        + "6. Print out ID hashtable\n"
+        + "7. Remove contributor by ID\n"
+        + "8. Find contributor by name [first or last]\n"
+        + "9. Find contributor by ID\n"
+        + "99. Exit program";
 
         // create a scanner to be used for the program inputs
         Scanner scanner = new Scanner(System.in);
@@ -49,8 +55,7 @@ class U5IP {
         boolean loop = true;
         while (loop) {
             System.out.println(prompt);
-            String answer = scanner.next();
-            int result = Integer.parseInt(answer);
+            int result = scanner.nextInt();
             switch (result) {
             case 1:
                 help.printLLAllContributorInfo(ll);
@@ -65,8 +70,7 @@ class U5IP {
                 }
                 help.addContributorSortedByLine(ll, c.getFirstName(), c.getLastName(), c.getCountry(), c.getPhone(),
                         c.getContribution(), c.getID());
-                hashHelp.addIDToHashtable(llht, c.getFirstName(), c.getLastName(), c.getCountry(), c.getPhone(),
-                        c.getContribution(), c.getID());
+                hashHelp.addIDToHashtable(ht, c);
                 break;
             case 3:
                 if (!help.checkLLEmpty(ll)) {
@@ -77,7 +81,7 @@ class U5IP {
                     Contributor tmpc = new Contributor(contribInfo.split(","));
                     System.out.println("\nremoving: " + tmpc.getFirstName());
                     help.popContributorFromLinkedList(ll, contribInfo);
-                    hashHelp.popIDFromHashtable(llht, tmpc.getID());
+                    hashHelp.popIDFromHashtable(ht, tmpc.getID());
                 }
                 break;
             case 4:
@@ -87,14 +91,14 @@ class U5IP {
                 help.printContributorsFromLinkedList(ll);
                 break;
             case 6:
-                hashHelp.printHashtable(llht);
+                hashHelp.printHashtable(ht);
                 break;
             case 7:
-                if (!hashHelp.checkHTEmpty(llht)) {
+                if (!hashHelp.checkHTEmpty(ht)) {
                     System.out.println("\nWhich ID would you like to remove?");
-                    hashHelp.printHashtableOneNumPerLine(llht);
+                    hashHelp.printHashtableOneNumPerLine(ht);
                     int rmID = scanner.nextInt();
-                    hashHelp.popIDFromHashtable(llht, rmID);
+                    hashHelp.popIDFromHashtable(ht, rmID);
                     String cInfo = help.findContributorInfoByID(ll, rmID);
                     if (cInfo.isEmpty()) {
                         System.out.println("Could not find ID in Linked List");
