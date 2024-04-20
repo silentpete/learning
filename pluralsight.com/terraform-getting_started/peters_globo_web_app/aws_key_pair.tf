@@ -1,0 +1,4 @@
+resource "aws_key_pair" "peters_public_key" {
+  key_name   = "peters_public_key"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBEwO+794FLhZNT1seLzZLMp9jvy+YutQp5X29Q01ln3px7H3BqtZ7sW1BDBGHLs1+PYbo5YEk73HhAXuj7EIGClmn3dVcM2uZ/Ebqq/BfqKa5A+8OBLK72vXxTvPRUNkwK5V8ZLwZE5nSnJliJNkEMSEL0RdPrFxjnEByW4iezd3Q95erOmrDco8AvYSmu5kBuTe54Rk3Q8jCIXvPM3dB/T6nO0Me6vYX25eEb8E8hka8EFIZGIU8GM282wQxaAB5UxfipLeA88i3TBQ+Ujc0bRDg4XOsjlzSioV6bh+KnnfzfQbqD2pos/bRHNdAPaBvJhCK/ur0P1Z+Ak+W/hXd peter.gallerani@ISS204816"
+}

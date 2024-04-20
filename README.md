@@ -1,3 +1,4 @@
-# school
+# Learning
 
-Currently attending Colorado Technical University
+Creating a general repository for learning from school or online courses or whatever...
+
